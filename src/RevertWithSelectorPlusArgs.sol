@@ -5,11 +5,14 @@ contract RevertWithSelectorPlusArgs {
     error RevertData(uint256); // selector: 0xae412287
 
     function main(uint256 x) external pure {
+        uint256 y = x;
+
+        bytes4  selector = RevertData.selector;
         assembly {
-            // your code here
-            // revert custom error with x parameter
-            // Hint: concatenate selector and x by storing them
-            // adjacent to each other in memory
+     
+            mstore(0x00, selector)
+            mstore(0x04, y)
+            revert(0x00, 0x24)
         }
     }
 }

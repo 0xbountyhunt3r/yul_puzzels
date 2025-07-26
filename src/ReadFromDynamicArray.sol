@@ -10,6 +10,21 @@ contract ReadFromDynamicArray {
 
     function main(uint256 index) external view returns (uint256) {
         assembly {
+            // Get the storage slot 'p' of the `readMe` array variable.
+            
+
+            // The data for a dynamic storage array starts at keccak256(p).
+            // To compute the hash, we must first store `p_slot` in memory.
+            mstore(0x00, readMe.slot)
+          
+            // The slot of the desired element is the data start slot + the index.
+            // We load the value directly from that calculated storage slot.
+            let element_val := sload(add(keccak256(0x00, 0x20), index))
+
+            // Return the value.
+            mstore(0x00, element_val)
+            return(0x00, 0x20)
+
             // your code here
             // read the value at the `index` in the dynamic array `readMe`
             // and return it

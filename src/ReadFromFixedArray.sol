@@ -10,6 +10,10 @@ contract ReadFromFixedArray {
 
     function main(uint256 index) external view returns (uint256) {
         assembly {
+
+            let element := sload(index)
+            mstore(0x00,element)
+            return(0x00,0x20)
             // your code here
             // read the value at the `index` in the fixed array `readMe`
             // and return it

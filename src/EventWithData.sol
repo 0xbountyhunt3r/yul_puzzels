@@ -6,13 +6,18 @@ contract EventWithData {
     event MyEvent(uint256 number);
 
     function main(uint256 _number) external {
+        bytes32 eventSig = bytes32(keccak256("MyEvent(uint256)"));
         assembly {
             // your code here
             // emit the `MyEvent(uint256)` event
             // the event has one topic and one non-indexed field:
             //   topic 0: The event signature hash (keccak256("MyEvent(uint256)"))
             //   data: The `number` value as the payload
-            // Hint: Use `log1` to emit the event with the hash as the topic and `number` as data
+            // Hint: Use `log1` to emit the event with the hash as the topic and `number` as data\
+
+            mstore(0x00,_number)
+
+            log1(0x00,0x20,eventSig)
         }
     }
 }

@@ -10,6 +10,16 @@ contract ReadFromMapping {
 
     function main(uint256 index) external view returns (uint256) {
         assembly {
+
+            let key := readMe.slot
+            
+            mstore(0x00, index)
+            mstore(0x20, key)
+            let loc := keccak256(0x00,0x40)
+
+            let val := sload(loc)
+            mstore(0x00,val)
+            return(0x00,0x20)
             // your code here
             // read the value at the `index` in the mapping `readMe`
             // and return it

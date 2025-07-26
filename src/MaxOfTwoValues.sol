@@ -9,6 +9,13 @@ contract MaxOfTwoValues {
             // assume the two values are not the same
             // Hint: use If-statement to check
 
+            if gt(x,y) {
+                mstore(0x00,x)
+                return(0x00,0x20)
+            }
+
+            mstore(0x00,y)
+            return(0x00,0x20)
             // here is how you do a conditional statement in yul
             // https://docs.soliditylang.org/en/latest/yul.html#if
         }

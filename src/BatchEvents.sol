@@ -10,6 +10,7 @@ contract BatchEvents {
         bytes32 sig = bytes32(keccak256("MyEvent(address,bytes32,uint256)"));
         assembly {
 
+            // * whenever you load an offset with calldata, add 0x04 to get the correct offset
             let emitters_ofst := add(calldataload(0x04),0x04)
             let ids_ofst := add(calldataload(0x24),0x04)
             let nums_ofst := add(calldataload(0x44),0x04)
